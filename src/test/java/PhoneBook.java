@@ -50,10 +50,11 @@ public class PhoneBook {
     }
     @Test
     public void numberOfRowWithName() {
+        String rowTarget = "Philip Cramer";
         List<WebElement> webElementList = webDriver.findElements(By.xpath("//table[@id='customers']//td[2]"));
         for (WebElement element : webElementList) {
-            if(element.getText().contains("Philip Cramer")) {
-                System.out.println("-----Philip-----");
+            if(element.getText().contains(rowTarget)) {
+                System.out.println("-----RowWithName-----");
                 System.out.println("Row number is: " + (webElementList.indexOf(element) + 1));
             }
         }
