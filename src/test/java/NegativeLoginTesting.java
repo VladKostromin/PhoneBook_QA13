@@ -1,13 +1,11 @@
-import org.checkerframework.checker.units.qual.C;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -30,9 +28,11 @@ public class NegativeLoginTesting {
         fillInputElement(emailInput, "johndoe$notemail.com");
         fillInputElement(passwordInput, "12345");
         webDriver.findElement(By.xpath("//button[text()=' Login']")).click();
-        synchronized (webDriver) {
-            webDriver.wait(1500);
-        }
+        WebDriverWait wait = new WebDriverWait(webDriver, Integer.MAX_VALUE);
+        wait.until(ExpectedConditions.alertIsPresent());
+//        synchronized (webDriver) {
+//            webDriver.wait(2000);
+//        }
         webDriver.switchTo().alert().accept();
         Assert.assertTrue(webDriver.findElement(By.xpath("//div[text()='Login Failed with code 400']")).isDisplayed());
     }
@@ -43,9 +43,11 @@ public class NegativeLoginTesting {
         fillInputElement(emailInput, "abc@def.com");
         fillInputElement(passwordInput, "$Abcdef1234");
         webDriver.findElement(By.xpath("//button[text()=' Login']")).click();
-        synchronized (webDriver) {
-            webDriver.wait(1500);
-        }
+        WebDriverWait wait = new WebDriverWait(webDriver, Integer.MAX_VALUE);
+        wait.until(ExpectedConditions.alertIsPresent());
+//        synchronized (webDriver) {
+//            webDriver.wait(2000);
+//        }
         webDriver.switchTo().alert().accept();
         Assert.assertTrue(webDriver.findElement(By.xpath("//div[.='Login Failed with code 500']")).isDisplayed());
     }
@@ -57,15 +59,18 @@ public class NegativeLoginTesting {
         fillInputElement(emailInput, "abc@def.com");
         fillInputElement(passwordInput, "$Abcdef12345");
         webDriver.findElement(By.xpath("//button[text()=' Registration']")).click();
-        synchronized (webDriver) {
-            webDriver.wait(1500);
-        }
+        WebDriverWait wait = new WebDriverWait(webDriver, Integer.MAX_VALUE);
+        wait.until(ExpectedConditions.alertIsPresent());
+//        synchronized (webDriver) {
+//            webDriver.wait(2000);
+//        }
         webDriver.switchTo().alert().accept();
         Assert.assertTrue(webDriver.findElement(By.xpath("//div[text()='Registration failed with code 409']")).isDisplayed());
     }
 
     @AfterMethod
     public void tearDown() {
+//        webDriver.quit();
 
     }
 
