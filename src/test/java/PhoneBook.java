@@ -1,7 +1,9 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
@@ -14,9 +16,11 @@ public class PhoneBook {
 
     @BeforeTest
     public void init() {
-        webDriver = new ChromeDriver();
+        ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
+        webDriver = new ChromeDriver(chromeOptions);
         webDriver.navigate().to(url);
-        webDriver.findElement(By.xpath("//a[text()='Learn CSS'] [@class='w3-button w3-block tut-button']")).click();
+        webDriver.findElement(By.xpath("//a[text()='Learn CSS'][@class='w3-button w3-block tut-button']")).click();
         webDriver.findElement(By.xpath("//a[text()='CSS Tables']")).click();
     }
     @Test
@@ -55,7 +59,7 @@ public class PhoneBook {
         for (WebElement element : webElementList) {
             if(element.getText().contains(rowTarget)) {
                 System.out.println("-----RowWithName-----");
-                System.out.println("Row number is: " + (webElementList.indexOf(element) + 1));
+                System.out.println("Row number is: " + (webElementList.indexOf(element) + 2));
             }
         }
 
